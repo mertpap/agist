@@ -148,6 +148,8 @@ const runPreloader = () => {
             onComplete: () => {
                 document.getElementById('preloader').style.display = 'none';
                 document.body.classList.remove('overflow-hidden');
+                lenis.start();
+                ScrollTrigger.refresh();
             }
         })
         .to('.nav-reveal', {
@@ -328,7 +330,15 @@ const setupTerminal = () => {
     });
 };
 
+// 8. Strict Initialization
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+    lenis.stop(); // Prevent scrolling during preloader
+    
     document.body.classList.add('overflow-hidden');
     
     document.querySelectorAll('.lang-btn').forEach(btn => {

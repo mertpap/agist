@@ -148,8 +148,14 @@ const runPreloader = () => {
             onComplete: () => {
                 document.getElementById('preloader').style.display = 'none';
                 document.body.classList.remove('overflow-hidden');
-                lenis.start();
-                ScrollTrigger.refresh();
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                    if(lenis) {
+                        lenis.start();
+                        lenis.scrollTo(0, {immediate: true});
+                    }
+                    ScrollTrigger.refresh();
+                }, 50);
             }
         })
         .to('.nav-reveal', {
@@ -336,8 +342,14 @@ if ('scrollRestoration' in history) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Clear hash to prevent jump to bottom sections on refresh
+    if(window.location.hash) {
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+    
     window.scrollTo(0, 0);
     lenis.stop(); // Prevent scrolling during preloader
+    if(lenis) lenis.scrollTo(0, {immediate: true});
     
     document.body.classList.add('overflow-hidden');
     

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Antigravity Istanbul | Strategy House</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Space Grotesk (Sharp Geometric Sans), JetBrains Mono (Tech) -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        deep: '#050505', 
+                        accent: '#00E5FF', 
+                        gray: { 300: '#D2D2D7', 500: '#888888', 800: '#222222' }
+                    },
+                    fontFamily: { 
+                        sans: ['"Space Grotesk"', 'sans-serif'], 
+                        mono: ['"JetBrains Mono"', 'monospace'] 
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-deep text-white font-sans antialiased overflow-x-hidden bg-deep-space min-h-screen">
+
+    <!-- Custom FWA Cursor -->
+    <div id="cursor" class="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent pointer-events-none z-[9999] opacity-0 hidden md:block mix-blend-screen shadow-[0_0_10px_#00E5FF]"></div>
+    <div id="cursor-follower" class="fixed top-0 left-0 w-12 h-12 rounded-full border border-white/10 pointer-events-none z-[9998] opacity-0 hidden md:flex items-center justify-center text-[10px] font-mono tracking-widest text-white uppercase text-center backdrop-blur-sm transition-colors duration-300"></div>
+
+    <!-- Background Electric Glow -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] pointer-events-none z-[0] rounded-full mix-blend-screen" id="bg-glow"></div>
+
+    <!-- Glitch Preloader -->
+    <div id="preloader" class="fixed inset-0 w-full h-screen bg-deep z-[10000] flex flex-col items-center justify-center pointer-events-none border-b border-accent">
+        <h1 id="loader-text" class="text-xl md:text-3xl font-mono tracking-[0.3em] uppercase text-accent translate-y-8 opacity-0">AG_IST<span class="animate-pulse">_</span></h1>
+    </div>
+
+    <!-- Asymmetrical Navigation -->
+    <nav class="fixed top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 z-[50] flex flex-col md:flex-row justify-between items-start md:items-center opacity-0 -translate-y-4 nav-reveal pointer-events-none">
+        <div class="font-mono text-sm tracking-[0.3em] uppercase text-white mb-4 md:mb-0 magnetic" style="pointer-events: auto;" data-strength="20">AG_IST</div>
+        <div class="text-xs font-mono tracking-widest uppercase flex items-center gap-8 text-gray-400" style="pointer-events: auto;">
+            <a href="#services" class="hidden md:block hover:text-accent transition-colors magnetic" data-strength="15" data-i18n="nav_ops">Operasyonlar</a>
+            <a href="#terminal" class="hover:text-accent transition-colors magnetic" data-strength="15" data-i18n="nav_signal">Sinyal</a>
+            <!-- Language Tech Toggle -->
+            <div class="flex items-center gap-0 border border-white/10 p-1 magnetic cursor-pointer" id="lang-toggle" data-strength="10">
+                <span class="lang-btn active text-accent border border-accent px-3 py-1 transition-all" data-lang="tr">TR</span>
+                <span class="lang-btn text-gray-600 border border-transparent hover:text-white px-3 py-1 transition-all" data-lang="en">EN</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Smooth Scroll Wrapper -->
+    <main id="smooth-wrapper" class="relative z-10 w-full transition-opacity duration-500 pt-32 md:pt-40">
+        <div id="smooth-content">
+            
+            <!-- 1. HERO (Asymmetrical Left-Aligned Brutalism) -->
+            <section class="relative w-full min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 mb-24 z-10">
+                <div class="w-full max-w-7xl border-l-[3px] border-accent pl-6 md:pl-10">
+                    <p class="text-accent font-mono tracking-widest uppercase text-[10px] md:text-xs mb-8 hero-reveal opacity-0 translate-y-4" data-i18n="hero_sub">// Pazar Hakimiyeti Müh.</p>
+                    
+                    <h1 class="text-[13vw] md:text-[8vw] lg:text-[7vw] font-bold leading-none tracking-tighter text-white uppercase break-words w-full">
+                        <span class="block opacity-0 translate-y-8 hero-title" data-i18n="hero_t1">Dikkat,</span>
+                        <span class="block opacity-0 translate-y-8 hero-title text-accent mix-blend-screen" data-i18n="hero_t2">Modern Çağın</span>
+                        <span class="block opacity-0 translate-y-8 hero-title text-gray-600" data-i18n="hero_t3">Tek Para Birimi.</span>
+                    </h1>
+                    
+                    <div class="mt-16 flex flex-col md:flex-row md:items-end justify-between gap-12 w-full">
+                        <p class="max-w-md text-base md:text-lg text-gray-400 font-light leading-relaxed hero-reveal opacity-0 translate-y-4" data-i18n="hero_desc">
+                            Biz, bu birimi yöneterek pazar hakimiyetinizi asimetrik algı yönetimiyle yeniden kodlayan bağımsız bir strateji eviyiz.
+                        </p>
+                        
+                        <!-- Magnetic Action Right-Aligned Asymmetry -->
+                        <div class="hero-reveal opacity-0 translate-y-4 magnetic self-end md:-mr-20 lg:-mr-32" data-strength="40">
+                            <a href="#services" class="w-32 h-32 md:w-40 md:h-40 rounded-full border border-accent flex flex-col items-center justify-center group hover:bg-accent transition-all duration-500 cursor-pointer">
+                                <span class="font-mono text-[10px] tracking-widest text-accent group-hover:text-deep transition-colors" data-i18n="hero_scroll">< INITIATE ></span>
+                                <span class="font-mono text-[8px] text-gray-500 mt-2 block group-hover:text-deep transition-colors" data-i18n="hero_defy">Yerçekimini Reddet</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transistor Marquee -->
+            <div class="w-full relative py-8 overflow-hidden whitespace-nowrap bg-black border-y border-white/5 text-gray-600 select-none marquee-container font-mono z-20">
+                <div class="marquee-track inline-block text-xl md:text-2xl tracking-[0.2em] uppercase">
+                    <span class="mx-8 text-white">AGENT OF CHANGE</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">DEFY GRAVITY</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">NO FAKE METRICS</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">ABSOLUTE DOMINANCE</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">AGENT OF CHANGE</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">DEFY GRAVITY</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">NO FAKE METRICS</span><span class="mx-8 text-accent">///</span>
+                    <span class="mx-8 text-white">ABSOLUTE DOMINANCE</span><span class="mx-8 text-accent">///</span>
+                </div>
+            </div>
+
+            <!-- 2. MANIFESTO (Stroke to Pure Neon Fill) -->
+            <section id="manifesto" class="w-full py-40 px-6 md:px-12 lg:px-24">
+                <div class="max-w-6xl w-full">
+                    <p class="font-mono text-[10px] tracking-widest uppercase mb-12 text-accent" data-i18n="mani_sub">[ FELSEFE ]</p>
+                    <!-- Asymmetrical alignment -> right align -->
+                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] manifesto-stroke uppercase text-left md:text-right" data-i18n="mani_main">
+                        Ağırlıklarından arın.<br>Alanının mutlak lideri ol. 
+                    </h2>
+                </div>
+            </section>
+
+            <!-- 3. SERVICES (Asymmetrical Hover Grid) -->
+            <section id="services" class="relative w-full py-40 px-6 md:px-12 lg:px-24 z-20">
+                <div class="max-w-7xl mx-auto">
+                    <p class="font-mono text-gray-500 text-[10px] tracking-[0.3em] uppercase mb-16" data-i18n="srv_sub">_Operasyonel_Ağ</p>
+                    
+                    <div class="flex flex-col md:flex-row w-full gap-10 lg:gap-20">
+                        
+                        <!-- Left Side: Sharp List -->
+                        <div class="w-full md:w-1/2 flex flex-col z-10 relative border-t border-white/10">
+                            <div class="service-row group border-b border-white/10 py-10 cursor-pointer flex flex-col justify-center transition-colors relative hover:border-accent overflow-hidden" data-index="0">
+                                <div class="absolute inset-0 bg-accent w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[-1] opacity-5"></div>
+                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-500 mb-4 group-hover:translate-x-4 will-change-transform uppercase" data-i18n="srv1_title">Reklam Ajansı</h3>
+                                <div class="opacity-100 group-hover:translate-x-4 transition-transform duration-500">
+                                    <p class="text-accent font-mono text-[10px] tracking-widest uppercase mb-3" data-i18n="srv1_sub">Kültürel Fenomen İnşası</p>
+                                    <p class="text-gray-400 font-light text-sm leading-relaxed max-w-sm" data-i18n="srv1_desc">Markanızı bir üründen sinematik ve yıkıcı bir kültürel ikona dönüştüren siber-stratejiler.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="service-row group border-b border-white/10 py-10 cursor-pointer flex flex-col justify-center transition-colors relative hover:border-accent overflow-hidden" data-index="1">
+                                <div class="absolute inset-0 bg-accent w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[-1] opacity-5"></div>
+                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-500 mb-4 group-hover:translate-x-4 will-change-transform uppercase" data-i18n="srv2_title">Influencer Ajansı</h3>
+                                <div class="opacity-100 group-hover:translate-x-4 transition-transform duration-500">
+                                    <p class="text-accent font-mono text-[10px] tracking-widest uppercase mb-3" data-i18n="srv2_sub">Dijital Otorite Senkronizasyonu</p>
+                                    <p class="text-gray-400 font-light text-sm leading-relaxed max-w-sm" data-i18n="srv2_desc">Yapay metrikleri reddeden, saf kanaat önderleriyle kurulan asimetrik büyüme ağları.</p>
+                                </div>
+                            </div>
+
+                            <div class="service-row group border-b border-white/10 py-10 cursor-pointer flex flex-col justify-center transition-colors relative hover:border-accent overflow-hidden" data-index="2">
+                                <div class="absolute inset-0 bg-accent w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[-1] opacity-5"></div>
+                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-500 mb-4 group-hover:translate-x-4 will-change-transform uppercase" data-i18n="srv3_title">Sosyal Medya Ajansı</h3>
+                                <div class="opacity-100 group-hover:translate-x-4 transition-transform duration-500">
+                                    <p class="text-accent font-mono text-[10px] tracking-widest uppercase mb-3" data-i18n="srv3_sub">Dinamik Algı Yönetimi</p>
+                                    <p class="text-gray-400 font-light text-sm leading-relaxed max-w-sm" data-i18n="srv3_desc">Tüketici davranış paternlerini kendi lehine işleyen fütüristik dijital manipülasyon.</p>
+                                </div>
+                            </div>
+
+                            <div class="service-row group border-b border-white/10 py-10 cursor-pointer flex flex-col justify-center transition-colors relative hover:border-accent overflow-hidden" data-index="3">
+                                <div class="absolute inset-0 bg-accent w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] z-[-1] opacity-5"></div>
+                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-500 mb-4 group-hover:translate-x-4 will-change-transform uppercase" data-i18n="srv4_title">Tam Hizmet Ajansı</h3>
+                                <div class="opacity-100 group-hover:translate-x-4 transition-transform duration-500">
+                                    <p class="text-accent font-mono text-[10px] tracking-widest uppercase mb-3" data-i18n="srv4_sub">Uçtan Uca Pazar Hakimiyeti</p>
+                                    <p class="text-gray-400 font-light text-sm leading-relaxed max-w-sm" data-i18n="srv4_desc">Embriyo aşamasından global tekele kadar tüm mekanizmayı yöneten kusursuz otonomi.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Sharp FWA Image Slice Container -->
+                        <div class="hidden md:block w-1/2 relative bg-black border border-white/10" style="clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);">
+                            <div class="sticky top-24 w-full h-[70vh] overflow-hidden grayscale group-hover/list:grayscale-0 transition-all duration-[1s]">
+                                <!-- Image Layers -->
+                                <img src="images/1.jpg" class="sticky-img absolute inset-0 w-full h-full object-cover transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] opacity-100 scale-100 filter grayscale(100%) blur(0)" data-index="0">
+                                <img src="images/2.jpg" class="sticky-img absolute inset-0 w-full h-full object-cover transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] opacity-0 scale-110 filter grayscale(100%) blur(4px)" data-index="1">
+                                <img src="images/3.jpg" class="sticky-img absolute inset-0 w-full h-full object-cover transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] opacity-0 scale-110 filter grayscale(100%) blur(4px)" data-index="2">
+                                <img src="images/4.jpg" class="sticky-img absolute inset-0 w-full h-full object-cover transition-all duration-[1s] ease-[cubic-bezier(0.19,1,0.22,1)] opacity-0 scale-110 filter grayscale(100%) blur(4px)" data-index="3">
+                            </div>
+                            <!-- Crosshairs Decoration -->
+                            <div class="absolute top-4 left-4 w-4 h-4 border-l border-t border-accent opacity-50"></div>
+                            <div class="absolute bottom-4 right-4 w-4 h-4 border-r border-b border-accent opacity-50"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. THE CORE (Cyberpunk Parallax Layout) -->
+            <section class="relative w-full py-40 px-6 md:px-12 lg:px-24 bg-deep">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+                    <div class="w-full md:w-1/2 border-l border-white/10 pl-10 relative">
+                        <!-- Decorative box -->
+                        <div class="absolute top-0 -left-[5px] w-[10px] h-[10px] bg-accent"></div>
+                        
+                        <p class="font-mono text-accent text-[10px] tracking-widest uppercase mb-6" data-i18n="core_title">IKIGAI x KAIZEN</p>
+                        <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-8 uppercase" data-i18n="core_p1">
+                            İnsanlar fonksiyon satın almaz; vizyon, statü ve siber-estetik satın alır. Küresel pazarların kaosunu algoritmik bir estetikle harmanlıyoruz.
+                        </h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed max-w-sm" data-i18n="core_p2">
+                            Amacımız markanızın çekirdek kimliğini (Ikigai) mutlak ve yok edilemez bir monopol haline getirmektir.
+                        </p>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 relative bg-black border border-white/5 p-4">
+                        <div class="w-full aspect-square md:aspect-[4/3] overflow-hidden relative grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                            <img src="images/5.jpg" class="absolute inset-0 w-full h-full object-cover parallax-img mix-blend-screen scale-110">
+                            <!-- Futuristic overlay grid -->
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"></div>
+                        </div>
+                        <div class="absolute -bottom-10 -left-10 bg-black border border-accent p-6 max-w-[80%] terminal-glow">
+                            <p class="text-2xl font-bold tracking-tight text-white mb-1 uppercase" data-i18n="core_kaizen">Her sinyal gönderimi,</p>
+                            <p class="text-sm font-mono text-accent" data-i18n="core_kaizen_2">pazar hakimiyetini sarsılmaz kılan bir sistem güncellemesidir.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. THE TERMINAL (Deep Sci-Fi UI) -->
+            <section id="terminal" class="relative w-full py-40 px-6 flex flex-col justify-center items-center bg-black">
+                <div class="w-full max-w-3xl mx-auto z-10 relative terminal-glow p-10 md:p-20 bg-deep-space">
+                    
+                    <!-- Top Bar -->
+                    <div class="absolute top-0 left-0 w-full h-8 bg-black border-b border-accent/20 flex items-center px-4 justify-between">
+                        <div class="flex gap-2">
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                            <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                        </div>
+                        <div class="text-[8px] font-mono text-gray-500">SYS.TERMINAL.AG_IST</div>
+                    </div>
+
+                    <div class="mb-16 mt-8">
+                        <p class="font-mono text-accent text-[10px] tracking-widest uppercase mb-4" data-i18n="term_title">/// BAĞLANTI PROTOKOLÜ</p>
+                        <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-white uppercase" data-i18n="term_sub">VERİ AKIŞINI BAŞLAT.</h2>
+                    </div>
+
+                    <div class="mb-12 font-mono text-[10px] text-accent p-4 bg-black/50 border border-white/5 rounded-sm">
+                        <span id="terminal-output"></span><span class="cursor inline-block w-[6px] h-[1em] bg-accent ml-2 animate-pulse align-bottom"></span>
+                    </div>
+
+                    <form id="command-form" class="space-y-10 w-full font-mono text-xs text-white">
+                        <div class="flex flex-col md:flex-row gap-10 md:gap-6">
+                            <div class="relative w-full border-b border-white/20 group pb-2">
+                                <label for="input1" class="text-[8px] text-gray-500 block mb-2 group-focus-within:text-accent transition-colors" data-i18n="term_l1">[ ŞİRKET / AĞ ADI ]</label>
+                                <input type="text" id="input1" class="w-full bg-transparent focus:outline-none focus:border-white transition-colors placeholder-transparent" required>
+                            </div>
+
+                            <div class="relative w-full border-b border-white/20 group pb-2">
+                                <label for="input2" class="text-[8px] text-gray-500 block mb-2 group-focus-within:text-accent transition-colors" data-i18n="term_l2">[ YETKİLİ / SİNYAL ]</label>
+                                <input type="text" id="input2" class="w-full bg-transparent focus:outline-none focus:border-white transition-colors placeholder-transparent" required>
+                            </div>
+                        </div>
+
+                        <div class="relative w-full border-b border-white/20 group pb-2">
+                            <label for="input3" class="text-[8px] text-gray-500 block mb-2 group-focus-within:text-accent transition-colors" data-i18n="term_l3">[ HEDEF SEKTÖR / ZON ]</label>
+                            <input type="text" id="input3" class="w-full bg-transparent focus:outline-none focus:border-white transition-colors placeholder-transparent" required>
+                        </div>
+
+                        <div class="relative w-full border-b border-white/20 group pb-2 mb-16">
+                            <label for="input4" class="text-[8px] text-gray-500 block mb-2 group-focus-within:text-accent transition-colors" data-i18n="term_l4">[ STRATEJİK ÇIKTI / GÖREV ]</label>
+                            <input type="text" id="input4" class="w-full bg-transparent focus:outline-none focus:border-white transition-colors placeholder-transparent" required>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mt-12 magnetic" data-strength="30">
+                            <button type="submit" id="submit-btn" class="border border-accent text-accent px-10 py-5 font-bold text-[10px] tracking-widest hover:bg-accent hover:text-black transition-colors w-full uppercase">
+                                <span data-i18n="term_btn">[ SİNYALİ İLET ]</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            
+            <footer class="w-full py-10 bg-black px-6 md:px-12 border-t border-accent/20 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-gray-500 uppercase tracking-widest gap-6 z-20 relative">
+                <span class="auto-type">© 2026 ANTIGRAVITY HQ.</span>
+                <span class="hover:text-accent transition-colors cursor-pointer text-accent" data-i18n="hero_defy">Yerçekimini Reddet</span>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

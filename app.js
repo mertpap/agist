@@ -248,6 +248,18 @@ const setupScrollAnimations = () => {
         yPercent: 15, ease: "none"
     });
     
+    // Top Scroll Progress Line
+    gsap.to('#scroll-progress', {
+        width: "100%",
+        ease: "none",
+        scrollTrigger: {
+            trigger: document.body,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.1
+        }
+    });
+    
     // Deep Space Aura Parallax
     gsap.to('#bg-glow', {
         y: 400, x: 100,

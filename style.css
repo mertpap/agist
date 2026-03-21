@@ -59,6 +59,16 @@ input:-webkit-autofill:active {
     border: 1px solid rgba(0,229,255,0.2);
 }
 
+/* Photographic Edge Fade (Vignette) */
+.image-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+    background: radial-gradient(circle at center, transparent 40%, rgba(5,5,5,0.7) 100%);
+    box-shadow: inset 0 0 120px 40px #050505;
+}
+
 /* Cyberpunk Marquee Animation */
 .marquee-container {
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
